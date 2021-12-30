@@ -8,6 +8,7 @@ services:
       - 5000:5000
     volumes:
       - ./work_db:/app
+      
   initdb:
     build:
       context: ./init_db
@@ -15,6 +16,7 @@ services:
       - 5001:5001
     volumes:
       - ./init_db:/init_db
+
   database_ms:
     image: mysql
     restart: always
@@ -26,8 +28,6 @@ services:
       MYSQL_ROOT_PASSWORD: 'gesl0'
     ports:
       - 3306:3306
-    expose:
-      - '3306'
     volumes:
       - my_sql:/var/lib/mysql
       - my_sql_config:/etc/mysql
