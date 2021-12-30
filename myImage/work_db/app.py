@@ -80,34 +80,7 @@ def writting():
 
   return render_template("write.html")
 
-@app.route('/create_db')
-def db_init():
-  mydb_conn = mysql.connector.connect(
-    host="database_ms",
-    user="root",
-    password="gesl0"
-  )
-  cursor = mydb_conn.cursor()
 
-  cursor.execute("DROP DATABASE IF EXISTS bullet_points")
-  cursor.execute("CREATE DATABASE bullet_points")
-  cursor.close()
-
-  mydb_conn = mysql.connector.connect(
-    host="database_ms",
-    user="root",
-    password="gesl0",
-    database="bullet_points"
-  )
-  cursor = mydb_conn.cursor()
-
-  cursor.execute("DROP TABLE IF EXISTS points")
-  cursor.execute("CREATE TABLE points (id int NOT NULL AUTO_INCREMENT, name VARCHAR(255), description text(2000), PRIMARY KEY (id))")
-  mydb_conn.commit()
-  
-  cursor.close()
-
-  return 'Database is created and it is empty.\n'
 
 
 if __name__ == "__main__":

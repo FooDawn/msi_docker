@@ -6,3 +6,7 @@ vagrant/.vagrant
 
 possible_app
 possible_app_2
+
+myImage/work_db/__pycache__
+myImage/init_db/__pycache__
+myImage/__pycache__
