@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ./work_db
+    ports:
+      - 5000:5000
+    volumes:
+      - ./work_db:/app
+  
+  database_ms:
+    image: mysql
+    restart: always
+    environment:
+      # we create new  user
+      MYSQL_DATABASE: 'database_ms'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'geslo@'
+      MYSQL_ROOT_PASSWORD: 'gesl0'
+    ports:
+      - 3306:3306
+    expose:
+      - '3306'
+    volumes:
+      - my_sql:/var/lib/mysql
+      - my_sql_config:/etc/mysql
+
+volumes:
+  my_sql:
+  my_sql_config:

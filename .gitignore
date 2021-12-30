@@ -1,5 +1,6 @@
 # za virtualko za testirat docker
 .vagrant
+vagrant/.vagrant
 # vagrantfile
 # script.sh
 
