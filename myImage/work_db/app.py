@@ -20,52 +20,65 @@ def hello_world():
       "'Not everyone will understand your journey. Thats fine. Its not their journey to make sense of. Its yours.' -- Unknown"  ]
   randomNumber = randint(0, len(quotes) - 1)
   quote = quotes[randomNumber]
-  return render_template('text.html', **locals())
+  return render_template('hello.html', **locals())
 
 
-@app.route('/get_points')
-def get_widgets() :
-  mydb_conn = mysql.connector.connect(
-    host="database_ms",
-    user="root",
-    password="gesl0",
-    database="bullet_points"
-  )
-  cursor = mydb_conn.cursor()
+@app.route('/get_points', methods =["GET", "POST"])
+def get_points() :
+  if request.method == "POST":
+    try:
+      h_num_id = int(request.form.get("num_id"))
 
+      mydb_conn = mysql.connector.connect(
+        host="database_ms",
+        user="root",
+        password="gesl0",
+        database="bullet_points"
+      )
+      cursor = mydb_conn.cursor()
 
-  cursor.execute("SELECT * FROM points")
-  listaaa = cursor.description
-  row_headers = [x[0] for x in cursor.description] #this will extract row headers
+      sql = "SELECT * FROM points where id = %s;"
+      cursor.execute(sql, (h_num_id,))
 
-  results = cursor.fetchall()
-  json_data = []
-  for result in results:
-    json_data.append(dict(zip(row_headers, result)))
+      results = cursor.fetchall()
+    
+      cursor.close()
 
-  cursor.close()
+      return render_template("print_point.html", point=results[0])
 
-  return json.dumps(json_data)
+    except mysql.connector.Error as error:
+      return ("Failed to get record from MySQL table: {}".format(error))
 
+  return render_template("print.html")
 
-@app.route('/write_points')
+@app.route('/write_points', methods =["GET", "POST"])
 def writting():
-  mydb_conn = mysql.connector.connect(
-    host="database_ms",
-    user="root",
-    password="gesl0",
-    database="bullet_points"
+  if request.method == "POST":
+    # getting input with name = fname in HTML form
+    h_name = request.form.get("fname")
+    h_desc = request.form.get("desc")
 
-  )
-  cursor = mydb_conn.cursor()
+    mydb_conn = mysql.connector.connect(
+      host="database_ms",
+      user="root",
+      password="gesl0",
+      database="bullet_points"
+    )
+    cursor = mydb_conn.cursor()
+    sql = "INSERT INTO points (name, description) values (%s, %s)"
+    values = (h_name, h_desc)
+    cursor.execute(sql, values)
+    mydb_conn.commit()
 
-  cursor.execute("INSERT INTO points (name, description) values ('Nisarg','Upadhyay')")
-  mydb_conn.commit()
+    sql_id = "SELECT * FROM points where name = %s and description = %s;"
+    cursor.execute(sql_id, values)
+    results = cursor.fetchall()
 
-  
-  cursor.close()
+    cursor.close()
 
-  return 'Database is addded.\n'
+    return render_template("write_point.html", point=results[0])
+
+  return render_template("write.html")
 
 @app.route('/create_db')
 def db_init():
@@ -90,8 +103,8 @@ def db_init():
 
   cursor.execute("DROP TABLE IF EXISTS points")
   cursor.execute("CREATE TABLE points (id int NOT NULL AUTO_INCREMENT, name VARCHAR(255), description text(2000), PRIMARY KEY (id))")
-  cursor.execute("INSERT INTO points (name, description) values ('Nisargaa','Upadhdddddddyay')")
   mydb_conn.commit()
+  
   cursor.close()
 
   return 'Database is created and it is empty.\n'
