@@ -31,6 +31,7 @@ jobs:
       run: | 
         echo ---Building and starting up docker---
         docker-compose -f docker-compose.yml -p bullet_journal_up build
+        docker tag msi_docker_hub:latest "$DOCKER_USERNAME"/msi_docker_hub:latest
         docker push foodawn/msi_docker_hub
         echo ---Containers up---
  
