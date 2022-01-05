@@ -30,7 +30,7 @@ jobs:
     - name: Build and push
       run: | 
         echo ---Building and starting up docker---
-        docker-compose -f ./myImage/docker-compose.yml -p bullet_journal_up up --build
+        docker-compose -f ./myImage/docker-compose.yml -p bullet_journal_up build
         docker-compose push
         echo ---Containers up---
  
