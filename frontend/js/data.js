@@ -8,10 +8,12 @@ let pointer_number_id = document.getElementById("number_id")
 let pointer_search_num = document.getElementById("search_num")
 let pointer_search_name = document.getElementById("search_name")
 let pointer_search_desc = document.getElementById("search_desc")
+let pointer_posting_points = document.getElementById("posting_points")
+let pointer_getting_points = document.getElementById("getting_points")
 
 window.onload = function (){
-    document.getElementById("posting_points").addEventListener("submit", writing_point);
-    document.getElementById("getting_points").addEventListener("submit", getting_point);
+    pointer_posting_points.addEventListener("submit", writing_point);
+    pointer_getting_points.addEventListener("submit", getting_point);
 }
 
 function writing_point(){
@@ -19,7 +21,7 @@ function writing_point(){
     // console.log(event);
 
     let url = "http://localhost:5000/write_points";
-    console.log(url);
+    //console.log(url);
     let js_res = null;
 
     fetch(url, {method: 'POST', 
@@ -27,8 +29,8 @@ function writing_point(){
             'Access-Control-Allow-Origin' : '*',
             'Content-Type' : 'application/json;charset=utf-8' },
         body: JSON.stringify({
-            bname : document.getElementById("name").value,
-            desc : document.getElementById("description").value
+            bname : pointer_name.value,
+            desc : pointer_description.value
     })})
     .then(response => response.text())
     //.then(commits => alert(commits[0].author.login))
@@ -42,8 +44,8 @@ function writing_point(){
         pointer_return_desc.innerHTML = desc + d.return_desc;
 
         // se pobrisemo oddane vrednosti
-        document.getElementById("name").value = ""; 
-        document.getElementById("description").value = ""; 
+        pointer_name.value = ""; 
+        pointer_description.value = ""; 
 
     }).catch(error => console.log(error));
 
@@ -52,15 +54,12 @@ function writing_point(){
 
 }
 
-
-
-
 function getting_point(){
     event.preventDefault();
     // console.log(event);
 
     let url = "http://localhost:5000/get_points";
-    console.log(url);
+    // console.log(url);
 
     fetch(url, {method: 'POST', 
         headers: {
@@ -76,12 +75,12 @@ function getting_point(){
         let num = "Number of searched point: ";
         let name = "Name of searched point: ";
         let desc = "Description of searched point: ";
-        document.getElementById("search_num").innerHTML = num + d.return_num; 
-        document.getElementById("search_name").innerHTML = name + d.return_name; 
-        document.getElementById("search_desc").innerHTML = desc + d.return_desc;
+        pointer_search_num.innerHTML = num + d.return_num; 
+        pointer_search_name.innerHTML = name + d.return_name; 
+        pointer_search_desc.innerHTML = desc + d.return_desc;
 
         // se pobrisemo oddane vrednosti
-        document.getElementById("number_id").value = ""; 
+        pointer_number_id.value = ""; 
 
     }).catch(error => console.log(error));
 

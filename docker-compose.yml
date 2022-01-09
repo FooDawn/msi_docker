@@ -44,6 +44,11 @@ services:
     volumes:
       - ./frontend:/usr/share/nginx/html
 
+  go_app:
+    build:
+      context: ./multi_stage
+    ports:
+      - 5002:5002
 
 
 volumes:

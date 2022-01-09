@@ -9,10 +9,6 @@ app = Flask(__name__)
 CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-file_debug = open("debug_app.txt", "w")
-file_debug.write("fjkgffjkdfjkl")
-file_debug.close()
-
 
 @app.route('/home')
 def hello():
