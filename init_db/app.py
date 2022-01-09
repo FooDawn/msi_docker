@@ -1,15 +1,14 @@
 import mysql.connector
 import json
 from flask import Flask, flash, redirect, render_template, request, session, abort
-from flask_cors import CORS
 from random import randint
 
 app = Flask(__name__)
-CORS(app)
 
 @app.route('/')
 def hello_world():
   return render_template('hello.html')
+
 
 @app.route('/create_db')
 def db_init():
@@ -39,11 +38,6 @@ def db_init():
   cursor.close()
 
   return 'Database is created and it is empty.\n'
-
-@app.get('/shutdown')
-def shutdown():
-    shutdown_server()
-    return 'Server shutting down...'
 
     
 if __name__ == "__main__":

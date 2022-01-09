@@ -27,3 +27,7 @@ docker-compose -f docker-compose.yml up --build
 V brskalniku greš na http://localhost:5000/ ali http://localhost:5001/, kjer so splošna navodila.
 
 Obvezno moraš pred prvo uporabo iti na http://localhost:5001/create_db, to je kot neka registracija.
+
+## Potencialni problemi
+
+Če delaš v virtualki ali pa daješ svoj računalnik v spanje, preden ponovno zaženeš ukaz `docker-compose -f docker-compose.yml up --build` zaženi `sudo service docker restart`, saj tako ponovno dns resolution znotra docker-ja pravilno dela. 
