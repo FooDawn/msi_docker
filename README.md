@@ -38,7 +38,7 @@ Kjer lahko vpisuješ vse kar bi drugače lahko pozabil. To je tvoja online bele�
 ![write_1](images/write_before.png)  
 ![write_2](images/write_after.png)  
 
-To kar si iz zapisal najdeš po njegovem id-ju. 
+To kar si si zapisal lahko najdeš po njegovem id-ju oziroma njegovi zaporedni številki. 
 
 ![get_11](images/get_before.png)  
 ![get_12](images/get_before_2.png)  
