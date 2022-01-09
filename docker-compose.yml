@@ -22,18 +22,13 @@ services:
       context: ./work_db
     ports:
       - 5000:5000
-    volumes:
-      - ./work_db:/app
+    
       
   initdb:
     build:
       context: ./init_db
     ports:
       - 5001:5001
-    volumes:
-      - ./init_db:/init_db
-    depends_on:
-      - database_ms
 
   frontend:
     restart: always
@@ -41,8 +36,6 @@ services:
       context: ./frontend
     ports:
       - 8080:80
-    volumes:
-      - ./frontend:/usr/share/nginx/html
 
   go_app:
     build:

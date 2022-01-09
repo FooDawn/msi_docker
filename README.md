@@ -8,6 +8,7 @@ docker run -ti <name>
 -t indicates the tag to apply to the image.
 . indicates the location of the build context.
 Naloži datoteke ter se premakni v ustrezen file. 
+
 # MSI Docker domača naloga
 ## Splošno o nalogi
 ```bash
