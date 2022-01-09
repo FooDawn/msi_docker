@@ -31,7 +31,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: ./frontend
-        file: ./Dockerfile
+        file: ./frontend/Dockerfile
         builder: ${{ steps.buildx.outputs.name }}
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/web_app:latest
@@ -40,7 +40,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: ./init_db
-        file: ./Dockerfile
+        file: ./init_db/Dockerfile
         builder: ${{ steps.buildx.outputs.name }}
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/initdb:latest
@@ -49,7 +49,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: ./multi_stage
-        file: ./Dockerfile
+        file: ./multi_stage/Dockerfile
         builder: ${{ steps.buildx.outputs.name }}
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/go_app:latest
