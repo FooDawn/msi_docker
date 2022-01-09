@@ -51,12 +51,11 @@ def get_points() :
 
   return render_template("print.html")
 
-
 @app.route('/write_points', methods =["GET", "POST"])
 def writting():
   if request.method == "POST":
-    # getting input with name = bname in HTML form
-    h_name = request.form.get("bname")
+    # getting input with name = fname in HTML form
+    h_name = request.form.get("fname")
     h_desc = request.form.get("desc")
 
     mydb_conn = mysql.connector.connect(

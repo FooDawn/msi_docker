@@ -1,10 +1,11 @@
 import mysql.connector
 import json
 from flask import Flask, flash, redirect, render_template, request, session, abort
+from flask_cors import CORS
 from random import randint
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route('/')
 def hello_world():
@@ -39,6 +40,11 @@ def db_init():
 
   return 'Database is created and it is empty.\n'
 
+@app.get('/shutdown')
+def shutdown():
+    shutdown_server()
+    return 'Server shutting down...'
 
+    
 if __name__ == "__main__":
   app.run(host ='0.0.0.0', port=5001)

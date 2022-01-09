@@ -5,7 +5,10 @@ WORKDIR /init_db
 
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
+ 
 
 COPY . .
 
-CMD python3 -m flask run --host 0.0.0.0 --port 5001
+RUN python3 -m flask run --host 0.0.0.0 --port 5001
+RUN curl http://localhost:5001/create_db
+RUN curl http://localhost:5001/shutdown
